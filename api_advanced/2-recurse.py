@@ -1,14 +1,14 @@
 #!/usr/bin/python3
-
-
-
 """Recursively gets all hot post titles from a subreddit"""
+
 import requests
 
 def recurse(subreddit, hot_list=[], after=None):
-    url = f"https://www.reddit.com/r/{subreddit}/hot.json"
-    headers = {"User-Agent": "alu-scripting:v1.0 (by /u/your_username)"}
-    params = {"after": after}
+    url = f"https://www.reddit.com/r/"+subreddit+"/hot.json"
+    headers = {"'User-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_0)\
+                AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100\
+                Safari/537.36"}
+    params = {'limit': 100, 'after': after}
     try:
         response = requests.get(url, headers=headers, params=params, allow_redirects=False)
         if response.status_code != 200:
