@@ -1,43 +1,39 @@
 #!/usr/bin/python3
+"""Recursive Reddit API keyword counter."""
 
-"""me importing request modulla 
-for this project"""
 import requests
 
-def count_words(subreddit, word_list, after=None, counts=None):
-    if counts is None:
-        counts = {}
-        for word in word_list:
-            counts[word.lower()] = 0
 
+def count_words(subreddit, word_list, after=None, word_count={}):
+    """Counts keywords in subreddit hot posts recursively."""
     url = f"https://www.reddit.com/r/{subreddit}/hot.json"
     headers = {"User-Agent": "alu-scripting:v1.0 (by /u/your_username)"}
-    params = {"after": after, "limit": 100}
+    params = {"after": after}
+    word_list = [word.lower() for word in word_list]
 
     try:
-        response = requests.get(url, headers=headers, params=params, allow_redirects=False)
+        response = requests.get(url, headers=headers,
+                                params=params, allow_redirects=False)
         if response.status_code != 200:
             return
 
         data = response.json().get("data", {})
         posts = data.get("children", [])
+        after = data.get("after")
+
         for post in posts:
             title = post.get("data", {}).get("title", "").lower().split()
             for word in title:
-                for key in counts.keys():
-                    if word == key:
-                        counts[key] += 1
+                if word in word_list:
+                    word_count[word] = word_count.get(word, 0) + 1
 
-        after = data.get("after")
         if after:
-            count_words(subreddit, word_list, after, counts)
-        else:
-            # Sort and print
-            sorted_counts = sorted(
-                [(k, v) for k, v in counts.items() if v > 0],
-                key=lambda x: (-x[1], x[0])
-            )
-            for word, count in sorted_counts:
+            return count_words(subreddit, word_list, after, word_count)
+
+        # Sort and print
+        for word, count in sorted(word_count.items(),
+                                  key=lambda x: (-x[1], x[0])):
+            if count > 0:
                 print(f"{word}: {count}")
 
     except requests.RequestException:
