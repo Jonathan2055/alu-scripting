@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 """Gets number of subscribers for a given subreddit"""
+
 import requests
+
 
 def number_of_subscribers(subreddit):
     url = "https://www.reddit.com/r/"+subreddit+"/about.json"
