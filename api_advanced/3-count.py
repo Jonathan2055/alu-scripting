@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-"""Recursive Reddit API keyword counter."""
 
+"""Recursive Reddit API keyword counter."""
 import requests
 
 
