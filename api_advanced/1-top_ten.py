@@ -1,12 +1,4 @@
 #!/usr/bin/python3
-"""Prints the titles of the top 10 hot posts of a subreddit"""
-
-import requests
-
-
-def top_ten(subreddit):
-    url = "https://www.reddit.com/r/"+subreddit+"/hot.json?limit=10"
-    #!/usr/bin/python3
 """
  A function that queries the Reddit API and prints the titles.
 """
