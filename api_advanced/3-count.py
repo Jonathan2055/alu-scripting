@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
-"""Counts keyword occurrences in subreddit hot posts"""
+"""me importing request modulla 
+for this project"""
 import requests
 
 def count_words(subreddit, word_list, after=None, counts=None):
