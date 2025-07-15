@@ -2,7 +2,6 @@
 """
 A function that queries the Reddit API and prints the top 10 hot posts of a subreddit
 """
-
 import requests
 
 
